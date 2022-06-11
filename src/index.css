@@ -1,13 +1,64 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap');
+
+
+body, html, #root {
+    width: 100%;
+    height: 100%;
+    line-height: 1.5;
+    overflow: scroll;
+    font-family: 'PT Sans', sans-serif;
+}
+
+.App {
+    width: 100%;
+    height: 100%;
+}
+
+header {
+    font-size: 2rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.15);
+}
+
+.container {
+    width: 80%;
+    height: auto;
+    margin: 100px auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+h1 {
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.sudoku {
+    width: 450px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.field {
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    text-align: center;
+    color: #888;
+}
+
+.field[readonly] {
+    color: #333;
 }

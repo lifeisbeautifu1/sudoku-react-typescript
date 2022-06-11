@@ -1,24 +1,46 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import SudokuBoard from './components/SudokuBoard';
+import { SudokuType, ChangeType } from './types';
+import { generateSudoku, checkSolution } from './sudoku';
+import Timer from './components/Timer';
+import Result from './components/Result';
 
 function App() {
+  const [sudoku, setSudoku] = React.useState<SudokuType>(generateSudoku());
+  const onChange = (e: ChangeType): void => {
+    const copyState: SudokuType = { ...sudoku };
+    copyState.rows[e.field.row].cols[e.field.col].value = e.value;
+    if (!sudoku.solveTime) {
+      const solved = checkSolution(copyState);
+      console.log(solved);
+      if (solved) {
+        copyState.solveTime = new Date();
+      }
+    }
+    setSudoku(copyState);
+  };
+
+  const solveSudoku = () => {
+    const copyState = { ...sudoku };
+    copyState.rows.forEach((row) => {
+      row.cols.forEach((col) => {
+        col.value = copyState.solution[row.index * 9 + col.col];
+      });
+    });
+    setSudoku(copyState);
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header>Sudoku</header>
+
+      <div className="container">
+        {!sudoku.solveTime && <Timer startTime={sudoku.startTime} />}
+        {sudoku.solveTime && <Result sudoku={sudoku} />}
+        <SudokuBoard sudoku={sudoku} onChange={onChange} />
+        {/* <button className="btn" onClick={solveSudoku}>
+          Solve It
+        </button> */}
+      </div>
     </div>
   );
 }
