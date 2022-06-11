@@ -12,7 +12,6 @@ function App() {
     copyState.rows[e.field.row].cols[e.field.col].value = e.value;
     if (!sudoku.solveTime) {
       const solved = checkSolution(copyState);
-      console.log(solved);
       if (solved) {
         copyState.solveTime = new Date();
       }
